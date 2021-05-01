@@ -1,0 +1,62 @@
+"cloudwatch:events": {
+    "schema": {
+      "account": "string",
+      "detail": {},
+      "detail-type": "string",
+      "id": "string",
+      "region": "string",
+      "resources": [],
+      "source": "string",
+      "time": "string",
+      "version": "string"
+    },
+    "parser": "json",
+    "configuration": {
+      "normalization": {
+        "event_name": ["detail", "eventName"],
+        "account": [
+          {
+            "path": [
+              "account"
+            ],
+            "function": "Destination account ID"
+          },
+          {
+            "path": [
+              "detail",
+              "userIdentity",
+              "principalId"
+            ],
+            "function": "Source account ID"
+          }
+        ],
+        "ip_address": [
+          {
+            "path": [
+              "detail",
+              "sourceIPAddress"
+            ],
+            "function": "Source IP addresses"
+          }
+        ],
+        "user_agent": [
+          "detail",
+          "userAgent"
+        ],
+        "user_identity": [
+          {
+            "path": ["detail", "userIdentity", "type"],
+            "function": "User identity type"
+          },
+          {
+            "path": ["detail", "userIdentity", "arn"],
+            "function": "User identity arn"
+          },
+          {
+            "path": ["detail", "userIdentity", "userName"],
+            "function": "User identity username"
+          }
+        ]
+      }
+    }
+  }
